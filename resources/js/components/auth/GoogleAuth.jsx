@@ -19,9 +19,16 @@ export default function GoogleAuth() {
 
             if (response.status === 200) {
                 login(response.data?.auth_user, response.data?.token, response.data?.message);
-                setTimeout(() => {
-                    navigate('/dashboard')
-                }, 2000);
+                if (response.data?.auth_user.isAdmin) {
+                    setTimeout(() => {
+                        navigate('/dashboard')
+                    }, 2000);
+                } else {
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 2000);
+                }
+
             }
         } catch (error) {
             toast.error('Login failed');

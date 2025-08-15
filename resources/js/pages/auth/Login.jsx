@@ -1,8 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import GoogleAuth from '../../components/auth/GoogleAuth';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+    const { user, token } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (token && user?.isAdmin) navigate('/dashboard');
+        if (token && !user?.isAdmin) navigate('/');
+    }, [token]);
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',

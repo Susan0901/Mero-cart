@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
+            $table->foreignId('role_id')->constrained('roles')->restrictOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

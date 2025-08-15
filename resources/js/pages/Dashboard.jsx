@@ -6,8 +6,9 @@ export default function Dashboard() {
     const { user, token, logout } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
-        if (!token) navigate('/login');
-    },[token, navigate]);
+        if (!token || !user?.isAdmin) navigate('/login');
+    }, [token, navigate]);
+
     return (
         <div>
             {user?.name || 'Guest User'}
